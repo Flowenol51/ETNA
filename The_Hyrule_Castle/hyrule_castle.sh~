@@ -1,0 +1,77 @@
+
+#!/bin/bash
+
+start() {
+#starting zone
+    first_line=0
+    while IFS=',' read -r id name hp mp str int def res spd luck race class rarity; do
+	if [[ $first_line -ne 0 ]]; then	
+	    if [[ $name = $2 ]]; then #saving link's stats
+	     	echo $name $hp $str
+	    fi
+	else
+	    first_line=1
+	fi
+    done < $1
+}
+
+
+finish() {
+    if [[ $P1HP = 0 || $EHP = 0 || $MBHP = 0 ]]; then
+	echo GAME OVER!
+	end=0
+fi
+
+}
+fight() {
+echo ========== ROUND 1 ==========
+
+echo -e "\e[31m$ENAME:\e[0m";
+echo HP: $(enemyhp)
+    echo "Hero! What will you do?
+    -> Attack (A/1)
+    -> Heal (H/2)
+"
+   
+
+
+    
+}
+
+enemyhp() {
+    temp=1
+    while [[ $temp -le $EMHP ]]; do
+	EBAR+="I"
+	temp=$(($temp+1))
+	
+    done
+    echo $EBAR
+}
+playerhp() {
+    temp=1
+    while [[ $temp -le $EMHP ]]; do
+        EBAR+="I"
+        temp=$(($temp+1))
+
+    done
+    echo $EBAR
+}
+#bash title.sh
+
+#stats() {
+player1=$(echo $(start players.csv Link))
+enemy1=$(echo $(start enemies.csv Bokoblin))
+boss1=$(echo $(start bosses.csv Ganon))
+P1MHP=$(echo $(echo $player1 | cut -d " " -f2))
+P1STR=$(echo $(echo $player1 | cut -d " " -f3))
+P1NAME=$(echo $(echo $player1 | cut -d " " -f1))
+EMHP=$(echo $(echo $enemy1 | cut -d " " -f2))
+ESTR=$(echo $(echo $enemy1 | cut -d " " -f3))
+ENAME=$(echo $(echo $enemy1 | cut -d " " -f1))
+BMHP=$(echo $(echo $boss1 | cut -d " " -f2))
+BSTR=$(echo $(echo $boss1 | cut -d " " -f3))
+BNAME=$(echo $(echo $boss1 | cut -d " " -f1))
+#}
+fight
+ #   done
+echo end
